@@ -1,0 +1,3 @@
+## Reflection 1
+
+I thought my code was already clean and secure. However, there are a few things that made me work extra to ensure that my code is clean, because of the habit of not paying attention to variable naming according to the instructions and maybe the comments in my code are still not effective, because maybe for individual code work I already understand what I am doing with my code even though I have been working on it for a long time. Perhaps in the future, if there is group assignment work, I will pay more attention to commenting sessions in the code for my teammates in the group.
