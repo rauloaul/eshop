@@ -38,6 +38,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public boolean delete(String id) {
+        Product product = get(id);
+        if (product != null) {
+            return productRepository.delete(product);
+        }
+
+        return false;
+    }
+
+    @Override
     public Product get(String id) {
         Iterator<Product> products = productRepository.findAll();
         while (products.hasNext()) {
