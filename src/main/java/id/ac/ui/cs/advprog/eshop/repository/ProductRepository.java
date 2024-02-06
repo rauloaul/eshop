@@ -16,14 +16,17 @@ public class ProductRepository {
         return product;
     }
 
-    public Product edit(Product product) {
-        for (int i = 0; i < productData.size(); i++) {
-            Product current = productData.get(i);
-            if (current.getProductId().equals(product.getProductId())) {
-                return productData.set(i, product);
+    public Product edit(String id, Product product) {
+        Iterator<Product> products = findAll();
+        int i = 0;
+        for (; products.hasNext(); i++) {
+            Product current = products.next();
+            if (current.getProductId().equals(id)) {
+                product.setProductId(current.getProductId());
+                break;
             }
         }
-        return null;
+        return productData.set(i, product);
     }
     public Iterator<Product> findAll() {
         return productData.iterator();
