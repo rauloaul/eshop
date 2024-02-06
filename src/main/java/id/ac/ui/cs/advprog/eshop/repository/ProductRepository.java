@@ -28,6 +28,11 @@ public class ProductRepository {
         }
         return productData.set(i, product);
     }
+
+    public boolean delete(Product product) {
+        return productData.remove(product);
+    }
+
     public Iterator<Product> findAll() {
         return productData.iterator();
     }
