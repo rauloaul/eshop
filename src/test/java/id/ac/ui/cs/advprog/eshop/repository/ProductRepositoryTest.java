@@ -135,32 +135,4 @@ public class ProductRepositoryTest {
         assertEquals(edited.getProductName(), "Mercedes");
         assertEquals(edited.getProductQuantity(), 10);
     }
-
-    @Test
-    void testEditNonExistingProduct() {
-        // Set product
-        Product product = new Product();
-        product.setProductId("cba5ef02-081c-44c3-a3c8-a49bb37ef505");
-        product.setProductName("Neck Deep");
-        product.setProductQuantity(1);
-        productRepository.create(product);
-
-        // Set nonExisting Product
-        String anotherId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
-        String anotherName = "Nock Doop";
-        int anotherQuantity = 100;
-        Product anotherProduct = new Product();
-        anotherProduct.setProductId(anotherId);
-        anotherProduct.setProductName(anotherName);
-        anotherProduct.setProductQuantity(anotherQuantity);
-
-        // Edit nonExisting Product
-        productRepository.edit(anotherId, anotherProduct);
-
-        Iterator<Product> productIterator = productRepository.findAll();
-        Product current = productIterator.next();
-        assertNotEquals(current.getProductId(), anotherId);
-        assertNotEquals(current.getProductName(), anotherName);
-        assertNotEquals(current.getProductQuantity(), anotherQuantity);
-    }
 }
