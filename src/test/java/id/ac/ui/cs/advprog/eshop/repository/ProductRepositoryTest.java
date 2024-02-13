@@ -18,9 +18,11 @@ public class ProductRepositoryTest {
 
     @InjectMocks
     ProductRepository productRepository;
+
     @BeforeEach
     void setUp() {
     }
+
     @Test
     void testCreateAndFind() {
         Product product = new Product();
@@ -42,6 +44,7 @@ public class ProductRepositoryTest {
         Iterator<Product> productIterator = productRepository.findAll();
         assertFalse(productIterator.hasNext());
     }
+
     @Test
     void testFindAllIfMoreThanOneProduct() {
         Product product1 = new Product();
@@ -134,5 +137,68 @@ public class ProductRepositoryTest {
         assertNotNull(edited);
         assertEquals(edited.getProductName(), "Mercedes");
         assertEquals(edited.getProductQuantity(), 10);
+    }
+
+    @Test
+    void testEditProductNoId() {
+        // Set
+        Product product1 = new Product();
+        product1.setProductId("cba5ef02-081c-44c3-a3c8-a49bb37ef505");
+        product1.setProductName("Erinaldi");
+        product1.setProductQuantity(200);
+        productRepository.create(product1);
+
+        Product product2 = new Product();
+        product2.setProductName("Erinalsong");
+        product2.setProductQuantity(250);
+
+        // Perform edit
+        Iterator<Product> productIterator = productRepository.findAll();
+        productRepository.edit(product1.getProductId(), product2);
+
+        // Check
+        Product savedProduct = productIterator.next();
+        assertEquals(savedProduct.getProductId(), product1.getProductId());
+        assertEquals(savedProduct.getProductId(), product2.getProductId());
+        assertEquals(savedProduct.getProductName(), product2.getProductName());
+        assertEquals(savedProduct.getProductQuantity(), product2.getProductQuantity());
+    }
+    @Test
+    void testGetProduct() {
+        Product product1 = new Product();
+        product1.setProductId("cba5ef02-081c-44c3-a3c8-a49bb37ef505");
+        product1.setProductName("Erinaldi");
+        product1.setProductQuantity(200);
+        productRepository.create(product1);
+
+        Product getProduct = productRepository.get(product1.getProductId());
+        assertEquals(product1.getProductId(), getProduct.getProductId());
+        assertEquals(product1.getProductName(), getProduct.getProductName());
+        assertEquals(product1.getProductQuantity(), getProduct.getProductQuantity());
+    }
+    @Test
+    void testGetProductNotFound() {
+        Product product1 = new Product();
+        product1.setProductId("cba5ef02-081c-44c3-a3c8-a49bb37ef505");
+        product1.setProductName("Erinaldingdong");
+        product1.setProductQuantity(14);
+        productRepository.create(product1);
+
+        Product getProduct = productRepository.get("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        assertNull(getProduct);
+    }
+    @Test
+    void testEditProductNotExist() {
+        Product product1 = new Product();
+        product1.setProductId("cba5ef02-081c-44c3-a3c8-a49bb37ef505");
+        product1.setProductName("Erinaldingdong");
+        product1.setProductQuantity(14);
+
+        Product product2 = new Product();
+        product2.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product2.setProductName("Erinalelel");
+        product2.setProductQuantity(15);
+
+        assertNull(productRepository.edit(product1.getProductId(), product2));
     }
 }
