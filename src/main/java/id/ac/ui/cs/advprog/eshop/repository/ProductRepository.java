@@ -19,14 +19,17 @@ public class ProductRepository {
     public Product edit(String id, Product product) {
         Iterator<Product> products = findAll();
         int i = 0;
-        for (; products.hasNext(); i++) {
-            Product current = products.next();
-            if (current.getProductId().equals(id)) {
-                product.setProductId(current.getProductId());
-                break;
+        if (products.hasNext()) {
+            for (; products.hasNext(); i++) {
+                Product current = products.next();
+                if (current.getProductId().equals(id)) {
+                    product.setProductId(current.getProductId());
+                    break;
+                }
             }
+            return productData.set(i, product);
         }
-        return productData.set(i, product);
+        return null;
     }
 
     public boolean delete(Product product) {
@@ -35,5 +38,17 @@ public class ProductRepository {
 
     public Iterator<Product> findAll() {
         return productData.iterator();
+    }
+
+    public Product get(String id) {
+        Iterator<Product> products = findAll();
+
+        while (products.hasNext()) {
+            Product currentProduct = products.next();
+            if (currentProduct.getProductId().equals(id)) {
+                return currentProduct;
+            }
+        }
+        return null;
     }
 }
