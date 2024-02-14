@@ -11,9 +11,8 @@ import java.util.List;
 public class ProductRepository {
     private List<Product> productData = new ArrayList<>();
 
-    public Product create(Product product) {
+    public void create(Product product) {
         productData.add(product);
-        return product;
     }
 
     public Product edit(String id, Product product) {
