@@ -80,7 +80,7 @@ class PaymentServiceTest {
     @Test
     void testGetPaymentIdFound() {
         Payment payment = payments.get(1);
-        doReturn(payment).when(paymentRepository).getPayment(payment.getId());
+        doReturn(payment).when(paymentRepository).findById(payment.getId());
 
         Payment result = paymentService.getPayment(payment.getId());
         assertEquals(payment.getId(), result.getId());
@@ -88,22 +88,22 @@ class PaymentServiceTest {
 
     @Test
     void testGetPaymentIdNotFound() {
-        doReturn(null).when(paymentRepository).getPayment("zczc");
+        doReturn(null).when(paymentRepository).findById("zczc");
         assertNull(paymentService.getPayment("zczc"));
     }
 
     @Test
     void testGetAllPayments() {
-        doReturn(payments).when(paymentRepository).getAllPayments();
-        List <Payment> results = paymentService.getAllPayments();
+        doReturn(payments).when(paymentRepository).findAll();
+        List<Payment> results = paymentService.getAllPayments();
         assertEquals(payments.size(), results.size());
     }
 
     @Test
     void testGetAllPaymentsIfEmpty() {
-        List<Payment> result = paymentService.getAllPayments();
-        verify(paymentRepository, times(1)).getAllPayments();
-        assertEquals(0, result.size());
+        List<Payment> results = paymentService.getAllPayments();
+        verify(paymentRepository, times(1)).findAll();
+        assertEquals(0, results.size());
     }
 
     @Test
