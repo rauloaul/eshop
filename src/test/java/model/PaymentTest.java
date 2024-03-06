@@ -1,5 +1,6 @@
 package model;
 
+import enums.PaymentStatus;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.HashMap;
@@ -19,7 +20,7 @@ public class PaymentTest {
         assertEquals("1", payment.getId());
         assertEquals("VOUCHER", payment.getMethod());
         assertEquals("ESHOP1234ABC5678", payment.getPaymentData().get("VoucherCode"));
-        assertEquals("CHECKING_PAYMENT", payment.getStatus());
+        assertEquals(PaymentStatus.CHECKING_PAYMENT.getValue(), payment.getStatus());
     }
 
     @Test
@@ -31,7 +32,7 @@ public class PaymentTest {
 
         assertTrue(payment.getPaymentData().containsKey("deliveryFee"));
         assertTrue(payment.getPaymentData().containsKey("address"));
-        assertEquals("CHECKING_PAYMENT", payment.getStatus());
+        assertEquals(PaymentStatus.CHECKING_PAYMENT.getValue(), payment.getStatus());
         assertEquals("dummyId", payment.getId());
         assertEquals("CASH", payment.getMethod());
         assertEquals("Depok", payment.getPaymentData().get("address"));
@@ -44,8 +45,8 @@ public class PaymentTest {
         paymentData.put("VoucherCode", "ESHOP1234ABC5678");
 
         Payment payment = new Payment("dummyId", "VOUCHER", paymentData);
-        payment.setStatus("SUCCESS");
-        assertEquals("SUCCESS", payment.getStatus());
+        payment.setStatus(PaymentStatus.SUCCESS.getValue());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
 
     @Test
@@ -53,7 +54,7 @@ public class PaymentTest {
         assertThrows (IllegalArgumentException.class, () -> {
             Map<String, String> paymentData = new HashMap<>();
             paymentData.put("VoucherCode", "ESHOP1234ABC5678");
-            Payment payment = new Payment("dummyId", "VOUCHER", "INVALID_STATUS" ,paymentData);
+            Payment payment = new Payment("dummyId", "VOUCHER", "MEOW" ,paymentData);
         });
     }
 
@@ -64,7 +65,7 @@ public class PaymentTest {
 
         Payment payment = new Payment("dummyId", "VOUCHER", paymentData);
         assertThrows(IllegalArgumentException.class, () -> {
-            payment.setStatus("INVALID_STATUS");
+            payment.setStatus("MEOW");
         });
     }
 
@@ -74,7 +75,7 @@ public class PaymentTest {
         paymentData.put("VoucherCode", "ESHOP1234ABC5678");
 
         Payment payment = new Payment("dummyId", "VOUCHER", paymentData);
-        payment.setStatus("REJECTED");
-        assertEquals("REJECTED", payment.getStatus());
+        payment.setStatus(PaymentStatus.REJECTED.getValue());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 }

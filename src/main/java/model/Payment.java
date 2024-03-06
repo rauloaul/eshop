@@ -1,7 +1,8 @@
 package model;
 
+import enums.PaymentMethod;
+import enums.PaymentStatus;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Map;
 
@@ -9,14 +10,13 @@ import java.util.Map;
 public class Payment {
     String id;
     String method;
-    @Setter
     String status;
     Map<String, String> paymentData;
 
     public Payment(String id, String method,Map<String, String> paymentData){
         this.id = id;
         this.setMethod(method);
-        this.status = "CHECKING_PAYMENT";
+        this.status = PaymentStatus.CHECKING_PAYMENT.getValue();
         this.paymentData = paymentData;
     }
     public Payment(String id, String method,String status, Map<String, String> paymentData){
@@ -24,14 +24,14 @@ public class Payment {
         this.setStatus(status);
     }
     public void setStatus(String status) {
-        if (status.equals("SUCCESS") || status.equals("REJECTED")){
+        if (status.equals(PaymentStatus.SUCCESS.getValue()) || status.equals(PaymentStatus.REJECTED.getValue())){
             this.status = status;
         } else {
             throw new IllegalArgumentException();
         }
     }
     public void setMethod(String method) {
-        if (method.equals("CASH") || method.equals("VOUCHER")){
+        if (method.equals(PaymentMethod.CASH.getValue()) || method.equals(PaymentMethod.VOUCHER.getValue())){
             this.method = method;
         } else {
             throw new IllegalArgumentException();
