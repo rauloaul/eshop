@@ -1,5 +1,6 @@
 package repository;
 
+import enums.PaymentMethod;
 import enums.PaymentStatus;
 import model.Payment;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,13 +22,13 @@ public class PaymentRepositoryTest {
         payments = new ArrayList<>();
         Map<String, String> paymentData = new HashMap<>();
         paymentData.put("VoucherCode", "ESHOP1234ABC5678");
-        Payment payment = new Payment("1", "VOUCHER",paymentData);
+        Payment payment = new Payment("1", PaymentMethod.VOUCHER.getValue(), paymentData);
         payments.add(payment);
 
         Map<String, String> paymentData2 = new HashMap<>();
         paymentData2.put("deliveryFee", "10");
         paymentData2.put("address", "Depok");
-        Payment payment2 = new Payment("dummyId", "COD", paymentData2);
+        Payment payment2 = new Payment("dummyId", PaymentMethod.COD.getValue(), paymentData2);
         payments.add(payment2);
     }
 
@@ -49,7 +50,7 @@ public class PaymentRepositoryTest {
     void testVoucherInvalid(){
         Map<String, String> invalidPayment = new HashMap<>();
         invalidPayment.put("VoucherCode", "INVALID");
-        Payment tempPayment = new Payment("3", "VOUCHER", invalidPayment);
+        Payment tempPayment = new Payment("3", PaymentMethod.VOUCHER.getValue(), invalidPayment);
         paymentRepository.save(tempPayment);
 
         Payment result = paymentRepository.findById(tempPayment.getId());
@@ -64,7 +65,7 @@ public class PaymentRepositoryTest {
         Map<String, String> invalidPayment = new HashMap<>();
         invalidPayment.put("deliveryFee", "10");
         invalidPayment.put("address", "");
-        Payment tempPayment = new Payment("4", "COD", invalidPayment);
+        Payment tempPayment = new Payment("4", PaymentMethod.COD.getValue(), invalidPayment);
         paymentRepository.save(tempPayment);
 
         Payment result = paymentRepository.findById(tempPayment.getId());
@@ -81,7 +82,7 @@ public class PaymentRepositoryTest {
         Map<String, String> invalidPayment = new HashMap<>();
         invalidPayment.put("deliveryFee", "");
         invalidPayment.put("address", "Depok");
-        Payment tempPayment = new Payment("5", "COD", invalidPayment);
+        Payment tempPayment = new Payment("5", PaymentMethod.COD.getValue(), invalidPayment);
         paymentRepository.save(tempPayment);
 
         Payment result = paymentRepository.findById(tempPayment.getId());

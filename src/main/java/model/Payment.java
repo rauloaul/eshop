@@ -19,10 +19,12 @@ public class Payment {
         this.status = PaymentStatus.CHECKING_PAYMENT.getValue();
         this.paymentData = paymentData;
     }
+
     public Payment(String id, String method,String status, Map<String, String> paymentData){
         this(id, method, paymentData);
         this.setStatus(status);
     }
+
     public void setStatus(String status) {
         if (status.equals(PaymentStatus.SUCCESS.getValue()) || status.equals(PaymentStatus.REJECTED.getValue())){
             this.status = status;
@@ -30,8 +32,9 @@ public class Payment {
             throw new IllegalArgumentException();
         }
     }
+
     public void setMethod(String method) {
-        if (method.equals(PaymentMethod.CASH.getValue()) || method.equals(PaymentMethod.VOUCHER.getValue())){
+        if (method.equals(PaymentMethod.COD.getValue()) || method.equals(PaymentMethod.VOUCHER.getValue())){
             this.method = method;
         } else {
             throw new IllegalArgumentException();
