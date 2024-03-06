@@ -33,3 +33,8 @@ is group assignment work, I will pay more attention to commenting sessions in th
 2. The advantage of applying SOLID principles is that the code that we're trying to develop can be worked/developed further by the other developer.
 
 3. The disadvantage for not implementing SOLID principles is that it can be difficult to use and developed the code by other developers. Such as when I apply the OCP, where I change the UUID can be set. If it always forces that it always generates random UUID, then, it can only support UUID type id for the id.
+
+## Tutorial 4 - Reflection 1
+1. The TDD flow is useful in my opinion since it provides early bug detection and I already know what we want to get as the output from the module, so that we can minimize wrong output or some other mistakes.
+
+2. The code I worked on has already implemented the F.I.R.S.T. Principle.
